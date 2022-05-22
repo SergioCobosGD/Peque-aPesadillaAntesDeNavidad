@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
     Ray ray;
     RaycastHit hit;
     public LayerMask layerFloor;
+    public GameObject targetMovPrefab;
+    public GameObject prefabParent;
 
     public bool cambioMovPlayer; //true: dificultad pesadilla, false: dificultad media
 
@@ -39,6 +41,8 @@ public class PlayerMovement : MonoBehaviour
                 if (Input.GetMouseButtonDown(0))
                 {
                     agent.SetDestination(hit.point);
+                    GameObject cloneTarget = Instantiate(targetMovPrefab, hit.point, Quaternion.identity);
+                    cloneTarget.transform.parent = prefabParent.transform;
                 }
             }
             if (agent.velocity.magnitude != 0) anim.SetBool("isMoving", true);
